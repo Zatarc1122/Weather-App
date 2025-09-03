@@ -3,12 +3,12 @@
     <DynamicBackground />
     <header class="sticky top-0 px-4 py-6 sm:px-6 sm:py-8 border-b border-slate-700 flex flex-col items-center gap-6 text-center backdrop-blur-md bg-slate-900/55 shadow-lg shadow-slate-900/30 relative z-20">
       <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-wide select-none flex items-center gap-3">
-        <img src="/weather-icon.svg" alt="" aria-hidden="true" class="h-8 w-8 sm:h-10 sm:w-10 opacity-90 pointer-events-none select-none" />
+  <img :src="iconUrl" alt="" aria-hidden="true" class="h-8 w-8 sm:h-10 sm:w-10 opacity-90 pointer-events-none select-none" />
         <span class="flex items-baseline gap-1">
           <span class="text-sky-200">Weather</span>
           <span class="text-sky-300">Now</span>
         </span>
-        <img src="/weather-icon.svg" alt="" aria-hidden="true" class="h-8 w-8 sm:h-10 sm:w-10 opacity-90 pointer-events-none select-none" />
+  <img :src="iconUrl" alt="" aria-hidden="true" class="h-8 w-8 sm:h-10 sm:w-10 opacity-90 pointer-events-none select-none" />
       </h1>
       <nav class="flex flex-wrap justify-center gap-5">
         <RouterLink to="/" v-slot="{ isActive, href, navigate }">
@@ -79,10 +79,11 @@
 <script setup>
 import { RouterView } from 'vue-router';
 import { weatherTheme as theme } from './stores/weatherTheme.js';
-import { ref, watch } from 'vue';
+import { ref, watch, computed } from 'vue';
 import DynamicBackground from './components/DynamicBackground.vue';
 
 const prevTheme = ref(null);
+const iconUrl = computed(()=> (import.meta.env.BASE_URL || '/') + 'weather-icon.svg');
 watch(theme, (newVal, oldVal) => {
   if (oldVal && oldVal !== newVal) {
     prevTheme.value = oldVal;

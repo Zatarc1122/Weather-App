@@ -45,7 +45,10 @@ class BackgroundManager {
     'default': 'clear-day'
   };
   currentBase = computed(() => this.baseNames[this.theme.value] || this.baseNames['default']);
-  path(name, variant, ext){ return `/backgrounds/${name}${variant ? '-' + variant : ''}.${ext}`; }
+  path(name, variant, ext){
+    const base = import.meta.env.BASE_URL || '/';
+    return `${base}backgrounds/${name}${variant ? '-' + variant : ''}.${ext}`;
+  }
   desktopAvif = computed(() => this.path(this.currentBase.value, 'desktop', 'avif'));
   desktopWebp = computed(() => this.path(this.currentBase.value, 'desktop', 'webp'));
   desktopJpg  = computed(() => this.path(this.currentBase.value, 'desktop', 'jpg'));
